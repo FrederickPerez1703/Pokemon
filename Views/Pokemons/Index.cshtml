@@ -1,0 +1,62 @@
+﻿@model IEnumerable<ULTIMO_INTENTO_POKEMONES.Models.Pokemon>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.NombrePokemon)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ataque)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegionPokemonNavigation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoPokemonNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+
+     var photoPath ="~/img/" + ((!string.IsNullOrEmpty(item.Foto) ? item.Foto : "pokemon.png" ));
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombrePokemon)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ataque)
+            </td>
+            <td>
+                <img style="width: 200px;height: 200px" src="@photoPath" alt="Alternate Text" asp-append-version="true" />
+                @Html.DisplayFor(modelItem => item.Foto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegionPokemonNavigation.ColorRegion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoPokemonNavigation.NombreTipo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdPokemon">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdPokemon">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdPokemon">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
